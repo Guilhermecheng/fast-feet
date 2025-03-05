@@ -1,4 +1,3 @@
-import { expect, test } from 'vitest'
 import { CreateOrderUseCase } from './create-order'
 import { OrdersRepository } from '../repositories/orders-repository'
 import { Order } from '../entities/order'
@@ -15,6 +14,7 @@ test('create an order', async () => {
   const order = await createOrder.execute({
     destinationId: 'destiny',
     authorId: '123',
+    userId: 'usuario123',
     state: 'PENDING',
   })
 

@@ -1,30 +1,52 @@
-import { randomUUID } from 'node:crypto'
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
 
 interface OrderProps {
-  destinationId: string
-  authorId: string
+  destinationId: UniqueEntityID
+  authorId: UniqueEntityID
+  userId: UniqueEntityID
 
-  id?: string
-  state?: string
-  userId?: string
+  state: string
+  createdAt: Date
+  updatedAt?: Date
 }
 
 // Admin User
-export class Order {
-  public id: string
-  public authorId: string
-  public destinationId: string
+export class Order extends Entity<OrderProps> {
+  get destinationId() {
+    return this.props.destinationId
+  }
 
-  public userId?: string | null
-  public state: string
+  get authorId() {
+    return this.props.authorId
+  }
 
-  constructor(props: OrderProps) {
-    this.id = props.id ?? randomUUID()
+  get userId() {
+    return this.props.userId
+  }
 
-    this.destinationId = props.destinationId
-    this.authorId = props.authorId
+  get state() {
+    return this.props.state
+  }
 
-    this.state = props.state ?? 'PENDING'
-    this.userId = props.userId ?? null
+  get createdAt() {
+    return this.props.createdAt
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt
+  }
+
+  static create(props: Optional<OrderProps, 'createdAt'>, id?: UniqueEntityID) {
+    const order = new Order(
+      {
+        ...props,
+        createdAt: new Date(),
+      },
+      id?.toString(),
+    )
+
+    return order
   }
 }
