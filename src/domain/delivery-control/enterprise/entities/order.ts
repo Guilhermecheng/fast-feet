@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-interface OrderProps {
+export interface OrderProps {
   destinationId: UniqueEntityID
   authorId: UniqueEntityID
   userId: UniqueEntityID
@@ -10,6 +10,9 @@ interface OrderProps {
   state: string
   createdAt: Date
   updatedAt?: Date
+
+  title: string
+  quantity: number
 }
 
 // Admin User
@@ -44,7 +47,7 @@ export class Order extends Entity<OrderProps> {
         ...props,
         createdAt: new Date(),
       },
-      id?.toString(),
+      id,
     )
 
     return order

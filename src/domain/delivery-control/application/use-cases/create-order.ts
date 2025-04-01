@@ -1,12 +1,15 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Order } from '../entities/order'
 import { OrdersRepository } from '../repositories/orders-repository'
+import { Order } from '../../enterprise/entities/order'
 
 interface CreateOrderUseCaseRequest {
   destinationId: string
   authorId: string
   userId: string
   state: string
+
+  title: string
+  quantity: number
 }
 
 export class CreateOrderUseCase {
@@ -17,12 +20,17 @@ export class CreateOrderUseCase {
     authorId,
     userId,
     state,
+    title,
+    quantity,
   }: CreateOrderUseCaseRequest) {
     const order = Order.create({
       destinationId: new UniqueEntityID(destinationId),
       authorId: new UniqueEntityID(authorId),
       userId: new UniqueEntityID(userId),
       state,
+
+      title,
+      quantity,
     })
 
     await this.ordersRepository.create(order)

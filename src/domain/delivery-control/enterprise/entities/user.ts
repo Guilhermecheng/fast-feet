@@ -6,6 +6,7 @@ interface UserProps {
   createdAt: Date
   name: string
   cpf: string
+  email: string
   password: string
   role: string // 'ADMIN' | 'DELIVERYMAN'
 }
@@ -14,6 +15,10 @@ interface UserProps {
 export class User extends Entity<UserProps> {
   get name() {
     return this.props.name
+  }
+
+  get email() {
+    return this.props.email
   }
 
   get cpf() {
@@ -34,7 +39,7 @@ export class User extends Entity<UserProps> {
         ...props,
         createdAt: new Date(),
       },
-      id?.toString(),
+      id,
     )
 
     return user

@@ -36,3 +36,23 @@
 - User
 - Delivery Orders
 - Destinatários
+
+# Organização das pastas
+
+Para uma melhor separação das camadas, seguindo os princípios do SOLID e Clean Achitecture, seguirei a seguinte organização de pastas:
+
+├─ core
+│ ├─ common entitites, errors & types
+│
+├─ domain
+│ ├─ delivery-control (sub domain)
+│ │ ├─ enterprise (Entities)
+│ │ │ ├─ entities
+│ │ │
+│ │ ├─ application (Use cases)
+│ │ │ ├─ use-cases
+│ │ │ ├─ repositories
+
+### Clean Architecture
+
+![alt text](image.png)
