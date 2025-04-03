@@ -41,6 +41,7 @@
 
 Para uma melhor separação das camadas, seguindo os princípios do SOLID e Clean Achitecture, seguirei a seguinte organização de pastas:
 
+```
 ├─ core
 │ ├─ common entitites, errors & types
 │
@@ -52,6 +53,7 @@ Para uma melhor separação das camadas, seguindo os princípios do SOLID e Clea
 │ │ ├─ application (Use cases)
 │ │ │ ├─ use-cases
 │ │ │ ├─ repositories
+```
 
 ### Clean Architecture
 
