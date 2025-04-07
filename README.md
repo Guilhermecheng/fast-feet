@@ -1,13 +1,10 @@
-### Regras da aplicação
+# Regras da aplicação
 
 - [x] A aplicação deve ter dois tipos de usuário, entregador e/ou admin;
 - [ ] Deve ser possível realizar login com CPF e Senha;
-- [ ] Deve ser possível realizar o CRUD dos entregadores; - [x] Create - [x] Read - [ ] Update - [ ] Delete
-
-- [ ] Deve ser possível realizar o CRUD das encomendas; - [x] Create - [x] Read - [ ] Update - [x] Delete
-
-- [ ] Deve ser possível realizar o CRUD dos destinatários; - [ ] Create - [ ] Read - [ ] Update - [ ] Delete
-
+- [ ] Deve ser possível realizar o CRUD dos entregadores;
+- [ ] Deve ser possível realizar o CRUD das encomendas;
+- [ ] Deve ser possível realizar o CRUD dos destinatários;
 - [ ] Deve ser possível marcar uma encomenda como aguardando (Disponível para retirada);
 - [ ] Deve ser possível retirar uma encomenda;
 - [ ] Deve ser possível marcar uma encomenda como entregue;
@@ -17,7 +14,27 @@
 - [ ] Deve ser possível listar as entregas de um usuário;
 - [ ] Deve ser possível notificar o destinatário a cada alteração no status da encomenda;
 
-### Regras de negócio
+## CRUDS
+
+### Entregadores
+- [x] Create
+- [x] Read
+- [ ] Update 
+- [ ] Delete
+
+### Encomendas
+- [x] Create
+- [x] Read
+- [ ] Update
+- [x] Delete
+
+### Destinatários
+- [ ] Create
+- [ ] Read
+- [ ] Update
+- [ ] Delete
+
+# Regras de negócio
 
 - [ ] Somente usuário do tipo admin pode realizar operações de CRUD nas encomendas;
 - [ ] Somente usuário do tipo admin pode realizar operações de CRUD dos entregadores;
@@ -27,7 +44,7 @@
 - [ ] Somente o admin pode alterar a senha de um usuário;
 - [ ] Não deve ser possível um entregador listar as encomendas de outro entregador;
 
-### Conceitos que pode praticar
+## Conceitos que pode praticar
 
 - DDD, Domain Events, Clean Architecture
 - Autenticação e Autorização (RBAC)
