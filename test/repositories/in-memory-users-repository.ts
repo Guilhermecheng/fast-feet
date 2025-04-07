@@ -17,4 +17,14 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     return user
   }
+
+  async findByCpf(cpf: string) {
+    const user = this.items.find((item) => item.cpf === cpf)
+
+    if (!user) {
+      return null
+    }
+
+    return user
+  }
 }

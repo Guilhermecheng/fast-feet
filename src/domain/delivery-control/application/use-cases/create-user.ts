@@ -1,5 +1,7 @@
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { User } from '../../enterprise/entities/user'
 import { UsersRepository } from '../repositories/users-repository'
+import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists'
 
 interface CreateUserUseCaseRequest {
   name: string
@@ -19,6 +21,17 @@ export class CreateUserUseCase {
     password,
     role,
   }: CreateUserUseCaseRequest) {
+    if (!['ADMIN', 'DELIVERYMAN'].includes(role)) {
+      throw new NotAllowedError()
+    }
+
+    const userWithSameEmail = await this.usersRepository.findByEmail(email)
+    const userWithSameCpf = await this.usersRepository.findByCpf(cpf)
+
+    if (userWithSameEmail || userWithSameCpf) {
+      throw new UserAlreadyExistsError()
+    }
+
     const user = User.create({
       name,
       cpf,
