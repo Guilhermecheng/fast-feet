@@ -13,7 +13,7 @@ describe('Create User', () => {
   })
 
   it('should be able to create an user', async () => {
-    const user = await sut.execute({
+    const result = await sut.execute({
       cpf: '12345678910',
       email: 'guilherme@testeemail.com',
       password: '123456',
@@ -21,13 +21,14 @@ describe('Create User', () => {
       role: 'DELIVERYMAN',
     })
 
-    expect(inMemoryUsersRepository.items[0].name).toEqual('Guilherme')
-    expect(user.email).toEqual('guilherme@testeemail.com')
-    expect(user.id).toBeTruthy()
+    expect(result.isRight()).toBe(true)
+    expect(result.value).toEqual({
+      user: inMemoryUsersRepository.items[0],
+    })
   })
 
   it('should be able to create an user with an ADMIN role ', async () => {
-    const user = await sut.execute({
+    const result = await sut.execute({
       cpf: '12345678910',
       email: 'guilherme@testeemail.com',
       password: '123456',
@@ -35,13 +36,16 @@ describe('Create User', () => {
       role: 'ADMIN',
     })
 
-    expect(inMemoryUsersRepository.items[0].name).toEqual('Guilherme')
-    expect(user.id).toBeTruthy()
-    expect(user.role).toEqual('ADMIN')
+    expect(result.isRight()).toBe(true)
+    expect(result.value).toEqual({
+      user: expect.objectContaining({
+        role: 'ADMIN',
+      }),
+    })
   })
 
   it('should be able to create an user with a DELIVERYMAN role ', async () => {
-    const user = await sut.execute({
+    const result = await sut.execute({
       cpf: '12345678910',
       email: 'guilherme_entregador@testeemail2.com',
       password: '321654',
@@ -49,23 +53,25 @@ describe('Create User', () => {
       role: 'DELIVERYMAN',
     })
 
-    expect(inMemoryUsersRepository.items[0].name).toEqual(
-      'Guilherme Entregador',
-    )
-    expect(user.id).toBeTruthy()
-    expect(user.role).toEqual('DELIVERYMAN')
+    expect(result.isRight()).toBe(true)
+    expect(result.value).toEqual({
+      user: expect.objectContaining({
+        role: 'DELIVERYMAN',
+      }),
+    })
   })
 
   it('should NOT be able to create an user with any other type of role', async () => {
-    await expect(() =>
-      sut.execute({
-        cpf: '12345678910',
-        email: 'guilherme_entregador@testeemail2.com',
-        password: '321654',
-        name: 'Guilherme Entregador',
-        role: 'EXAMPLE_ROLE',
-      }),
-    ).rejects.toBeInstanceOf(NotAllowedError)
+    const result = await sut.execute({
+      cpf: '12345678910',
+      email: 'guilherme_entregador@testeemail2.com',
+      password: '321654',
+      name: 'Guilherme Entregador',
+      role: 'EXAMPLE_ROLE',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 
   it('should NOT be able to create other user with the same email', async () => {
@@ -77,15 +83,16 @@ describe('Create User', () => {
       role: 'DELIVERYMAN',
     })
 
-    await expect(() =>
-      sut.execute({
-        cpf: '12345678910',
-        email: 'guilherme_entregador@testeemail2.com',
-        password: '321654',
-        name: 'Guilherme Admin',
-        role: 'ADMIN',
-      }),
-    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
+    const result = await sut.execute({
+      cpf: '12345678910',
+      email: 'guilherme_entregador@testeemail2.com',
+      password: '321654',
+      name: 'Guilherme Admin',
+      role: 'ADMIN',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(UserAlreadyExistsError)
   })
 
   it('should NOT be able to create other user with the same CPF', async () => {
@@ -97,14 +104,15 @@ describe('Create User', () => {
       role: 'DELIVERYMAN',
     })
 
-    await expect(() =>
-      sut.execute({
-        cpf: '12345678910',
-        email: 'guilherme_teste2@teste.com',
-        password: '321654',
-        name: 'Guilherme 2',
-        role: 'ADMIN',
-      }),
-    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
+    const result = await sut.execute({
+      cpf: '12345678910',
+      email: 'guilherme_teste2@teste.com',
+      password: '321654',
+      name: 'Guilherme 2',
+      role: 'ADMIN',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(UserAlreadyExistsError)
   })
 })

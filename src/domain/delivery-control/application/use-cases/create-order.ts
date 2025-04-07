@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { OrdersRepository } from '../repositories/orders-repository'
 import { Order } from '../../enterprise/entities/order'
+import { right } from '@/core/either'
 
 interface CreateOrderUseCaseRequest {
   destinationId: string
@@ -35,6 +36,8 @@ export class CreateOrderUseCase {
 
     await this.ordersRepository.create(order)
 
-    return order
+    return right({
+      order,
+    })
   }
 }

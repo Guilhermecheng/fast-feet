@@ -11,7 +11,7 @@ describe('Create Order', () => {
   })
 
   it('should be able to create an order', async () => {
-    const order = await sut.execute({
+    const result = await sut.execute({
       destinationId: 'destiny',
       authorId: '123',
       userId: 'usuario123',
@@ -20,6 +20,11 @@ describe('Create Order', () => {
       quantity: 2,
     })
 
-    expect(order.state).toEqual('PENDING')
+    expect(result.isRight()).toBe(true)
+    expect(result.value).toEqual({
+      order: expect.objectContaining({
+        state: 'PENDING',
+      }),
+    })
   })
 })
