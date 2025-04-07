@@ -77,4 +77,4 @@ Para uma melhor separação das camadas, seguindo os princípios do SOLID e Clea
 
 ### Clean Architecture
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/11bed646-fd74-42e0-99bf-4ba7ba939858)
