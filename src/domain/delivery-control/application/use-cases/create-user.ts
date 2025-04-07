@@ -1,8 +1,8 @@
+import { left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
+import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists'
 import { User } from '../../enterprise/entities/user'
 import { UsersRepository } from '../repositories/users-repository'
-import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists'
-import { left, right } from '@/core/either'
 
 interface CreateUserUseCaseRequest {
   name: string

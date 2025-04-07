@@ -25,7 +25,7 @@ export class Destination extends Entity<DestinationProps> {
         ...props,
         createdAt: new Date(),
       },
-      id?.toString(),
+      id,
     )
 
     return destination
