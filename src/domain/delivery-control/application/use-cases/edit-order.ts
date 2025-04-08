@@ -45,9 +45,7 @@ export class EditOrderUseCase {
       return left(new UserNotFoundError())
     }
 
-    const authorRole = author.role
-
-    if (authorRole !== 'ADMIN') {
+    if (!author.canEditOrders()) {
       return left(new NotAllowedError())
     }
 

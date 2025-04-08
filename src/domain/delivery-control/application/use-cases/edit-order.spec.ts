@@ -64,8 +64,6 @@ describe('Edit Order', () => {
       state: order.state,
       quantity: 10,
     })
-    console.log(res)
-    console.log(inMemoryOrdersRepository.items[0])
 
     expect(inMemoryOrdersRepository.items[0].title).toEqual('new changed title')
     expect(inMemoryOrdersRepository.items[0].quantity).toEqual(10)

@@ -33,6 +33,14 @@ export class User extends Entity<UserProps> {
     return this.props.createdAt
   }
 
+  canEditOrders(): boolean {
+    return this.role === 'ADMIN'
+  }
+
+  canDeleteOrders(): boolean {
+    return this.role === 'ADMIN'
+  }
+
   static create(props: Optional<UserProps, 'createdAt'>, id?: UniqueEntityID) {
     const user = new User(
       {
