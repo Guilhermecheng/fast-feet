@@ -32,7 +32,7 @@
 
 ### Destinatários
 
-- [ ] Create
+- [x] Create
 - [ ] Read
 - [ ] Update
 - [ ] Delete
