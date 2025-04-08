@@ -16,6 +16,9 @@ interface EditOrderUseCaseRequest {
   title: string
   state: string
   quantity: number
+
+  widthdrawnDate?: Date | null
+  deliveryDate?: Date | null
 }
 
 export class EditOrderUseCase {
@@ -32,6 +35,8 @@ export class EditOrderUseCase {
     title,
     state,
     quantity,
+    deliveryDate = null,
+    widthdrawnDate = null,
   }: EditOrderUseCaseRequest) {
     const order = await this.ordersRepository.findById(orderId)
 
@@ -54,6 +59,9 @@ export class EditOrderUseCase {
     order.title = title
     order.state = state
     order.quantity = quantity
+
+    order.deliveryDate = deliveryDate
+    order.widthdrawnDate = widthdrawnDate
 
     await this.ordersRepository.update(order)
 

@@ -98,6 +98,62 @@ describe('Edit Order', () => {
     )
   })
 
+  it("should be able to set an order's widthdrawn date", async () => {
+    const admin = await makeUser({ role: 'ADMIN' })
+
+    const order = await makeOrder({
+      authorId: admin.id,
+    })
+
+    await inMemoryUsersRepository.create(admin)
+    await inMemoryOrdersRepository.create(order)
+
+    await sut.execute({
+      authorId: admin.id.toString(),
+      orderId: order.id.toString(),
+
+      destinationId: order.destinationId.toString(),
+      userId: order.userId.toString(),
+      title: order.title,
+      state: 'WITHDRAWN',
+      widthdrawnDate: new Date('22/03/2025'),
+      quantity: order.quantity,
+    })
+
+    expect(inMemoryOrdersRepository.items[0].state).toEqual('WITHDRAWN')
+    expect(inMemoryOrdersRepository.items[0].widthdrawnDate).toEqual(
+      new Date('22/03/2025'),
+    )
+  })
+
+  it("should be able to set an order's delivered date", async () => {
+    const admin = await makeUser({ role: 'ADMIN' })
+
+    const order = await makeOrder({
+      authorId: admin.id,
+    })
+
+    await inMemoryUsersRepository.create(admin)
+    await inMemoryOrdersRepository.create(order)
+
+    await sut.execute({
+      authorId: admin.id.toString(),
+      orderId: order.id.toString(),
+
+      destinationId: order.destinationId.toString(),
+      userId: order.userId.toString(),
+      title: order.title,
+      state: 'DELIVERED',
+      deliveryDate: new Date('22/04/2025'),
+      quantity: order.quantity,
+    })
+
+    expect(inMemoryOrdersRepository.items[0].state).toEqual('DELIVERED')
+    expect(inMemoryOrdersRepository.items[0].deliveryDate).toEqual(
+      new Date('22/04/2025'),
+    )
+  })
+
   it('should NOT be able to edit an order if user is not admiin', async () => {
     const admin = await makeUser({ role: 'DELIVERYMAN' })
 

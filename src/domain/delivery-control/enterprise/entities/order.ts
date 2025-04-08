@@ -7,9 +7,12 @@ export interface OrderProps {
   authorId: UniqueEntityID
   userId: UniqueEntityID
 
-  state: string
+  state: string // PENDING | WITHDRAWN | DELIVERED | CANCELED
   createdAt: Date
   updatedAt?: Date
+
+  widthdrawnDate?: Date | null
+  deliveryDate?: Date | null
 
   title: string
   quantity: number
@@ -39,6 +42,22 @@ export class Order extends Entity<OrderProps> {
 
   get updatedAt() {
     return this.props.updatedAt
+  }
+
+  get widthdrawnDate(): Date | null {
+    if (this.props.widthdrawnDate) {
+      return this.props.widthdrawnDate
+    }
+
+    return null
+  }
+
+  get deliveryDate(): Date | null {
+    if (this.props.deliveryDate) {
+      return this.props.deliveryDate
+    }
+
+    return null
   }
 
   get title() {
@@ -75,6 +94,16 @@ export class Order extends Entity<OrderProps> {
 
   set quantity(quantity: number) {
     this.props.quantity = quantity
+    this.touch()
+  }
+
+  set widthdrawnDate(date: Date | null) {
+    this.props.widthdrawnDate = date
+    this.touch()
+  }
+
+  set deliveryDate(date: Date | null) {
+    this.props.deliveryDate = date
     this.touch()
   }
 
