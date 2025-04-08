@@ -1,27 +1,38 @@
-import { Either, left, right } from '@/core/either'
+import { left, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { OrderNotFoundError } from '@/core/errors/errors/order-not-found-error'
 import { UserNotFoundError } from '@/core/errors/errors/user-not-found-error'
 import { OrdersRepository } from '../repositories/orders-repository'
 import { UsersRepository } from '../repositories/users-repository'
 
-interface DeleteOrderUseCaseRequest {
-  authorId: string
+interface EditOrderUseCaseRequest {
   orderId: string
+  authorId: string
+
+  destinationId: string
+  userId: string
+
+  title: string
+  state: string
+  quantity: number
 }
 
-type DeleteOrderUseCaseResponse = Either<NotAllowedError, null>
-
-export class DeleteOrderUseCase {
+export class EditOrderUseCase {
   constructor(
     private ordersRepository: OrdersRepository,
     private usersRepository: UsersRepository,
   ) {}
 
   async execute({
-    authorId,
     orderId,
-  }: DeleteOrderUseCaseRequest): Promise<DeleteOrderUseCaseResponse> {
+    authorId,
+    destinationId,
+    userId,
+    title,
+    state,
+    quantity,
+  }: EditOrderUseCaseRequest) {
     const order = await this.ordersRepository.findById(orderId)
 
     if (!order) {
@@ -40,7 +51,13 @@ export class DeleteOrderUseCase {
       return left(new NotAllowedError())
     }
 
-    await this.ordersRepository.delete(order)
+    order.userId = new UniqueEntityID(userId)
+    order.destinationId = new UniqueEntityID(destinationId)
+    order.title = title
+    order.state = state
+    order.quantity = quantity
+
+    await this.ordersRepository.update(order)
 
     return right(null)
   }

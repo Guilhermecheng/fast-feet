@@ -41,6 +41,43 @@ export class Order extends Entity<OrderProps> {
     return this.props.updatedAt
   }
 
+  get title() {
+    return this.props.title
+  }
+
+  get quantity() {
+    return this.props.quantity
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
+  }
+
+  set userId(userId: UniqueEntityID) {
+    this.props.userId = userId
+    this.touch()
+  }
+
+  set destinationId(destinationId: UniqueEntityID) {
+    this.props.destinationId = destinationId
+    this.touch()
+  }
+
+  set title(title: string) {
+    this.props.title = title
+    this.touch()
+  }
+
+  set state(state: string) {
+    this.props.state = state
+    this.touch()
+  }
+
+  set quantity(quantity: number) {
+    this.props.quantity = quantity
+    this.touch()
+  }
+
   static create(props: Optional<OrderProps, 'createdAt'>, id?: UniqueEntityID) {
     const order = new Order(
       {
