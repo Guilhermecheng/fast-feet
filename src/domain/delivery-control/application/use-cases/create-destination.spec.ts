@@ -25,7 +25,6 @@ describe('Create Destination', () => {
       customerEmail: 'teste email@teste.com',
     })
 
-    console.log(result.value)
     expect(result.isRight()).toBe(true)
     expect(result.value).toEqual({
       destination: expect.objectContaining({

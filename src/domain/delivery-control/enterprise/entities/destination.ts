@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-interface DestinationProps {
+export interface DestinationProps {
   zipCode: string
   address: string
   addressNumber: number

@@ -5,7 +5,10 @@ export interface DestinationsRepository {
   // delete(destination: Destination): Promise<void>
   // save(destination: Destination): Promise<void>
 
-  // findById(id: string): Promise<Destination | null>
-  // findManyRecent(): Promise<Destination[]>
-  // findManyOlder(): Promise<Destination[]>
+  findById(id: string): Promise<Destination | null>
+
+  findManyByCity(city: string): Promise<Destination[]>
+  findManyByState(state: string): Promise<Destination[]>
+
+  // findManyByCustomerName(customerName: string): Promise<Destination[]>
 }
