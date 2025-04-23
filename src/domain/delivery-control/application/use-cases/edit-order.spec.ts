@@ -154,7 +154,7 @@ describe('Edit Order', () => {
     )
   })
 
-  it('should NOT be able to edit an order if user is not admiin', async () => {
+  it('should NOT be able to edit an order if user is not admin', async () => {
     const admin = await makeUser({ role: 'DELIVERYMAN' })
 
     const order = await makeOrder({

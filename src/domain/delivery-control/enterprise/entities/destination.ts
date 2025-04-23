@@ -10,13 +10,14 @@ export interface DestinationProps {
   city: string
   state: string
   country: string
-  addressComplement?: string
+  addressComplement?: string | null
 
   customerName: string
-  customerPhone?: string
-  customerEmail?: string
+  customerPhone?: string | null
+  customerEmail?: string | null
 
   createdAt: Date
+  updatedAt?: Date
 }
 
 export class Destination extends Entity<DestinationProps> {
@@ -48,24 +49,95 @@ export class Destination extends Entity<DestinationProps> {
     return this.props.country
   }
 
-  get addressComplement() {
-    return this.props.addressComplement
+  get addressComplement(): string | null {
+    if (this.props.addressComplement) {
+      return this.props.addressComplement
+    }
+
+    return null
   }
 
   get customerName() {
     return this.props.customerName
   }
 
-  get customerPhone() {
-    return this.props.customerPhone
+  get customerPhone(): string | null {
+    if (this.props.customerPhone) {
+      return this.props.customerPhone
+    }
+
+    return null
   }
 
-  get customerEmail() {
-    return this.props.customerEmail
+  get customerEmail(): string | null {
+    if (this.props.customerEmail) {
+      return this.props.customerEmail
+    }
+
+    return null
   }
 
   get createdAt() {
     return this.props.createdAt
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
+  }
+
+  set zipCode(zipCode: string) {
+    this.props.zipCode = zipCode
+    this.touch()
+  }
+
+  set address(address: string) {
+    this.props.address = address
+    this.touch()
+  }
+
+  set addressNumber(addressNumber: number) {
+    this.props.addressNumber = addressNumber
+    this.touch()
+  }
+
+  set neighborhood(neighborhood: string) {
+    this.props.neighborhood = neighborhood
+    this.touch()
+  }
+
+  set city(city: string) {
+    this.props.city = city
+    this.touch()
+  }
+
+  set state(state: string) {
+    this.props.state = state
+    this.touch()
+  }
+
+  set country(country: string) {
+    this.props.country = country
+    this.touch()
+  }
+
+  set addressComplement(addressComplement: string | null) {
+    this.props.addressComplement = addressComplement
+    this.touch()
+  }
+
+  set customerName(customerName: string) {
+    this.props.customerName = customerName
+    this.touch()
+  }
+
+  set customerPhone(customerPhone: string | null) {
+    this.props.customerPhone = customerPhone
+    this.touch()
+  }
+
+  set customerEmail(customerEmail: string | null) {
+    this.props.customerEmail = customerEmail
+    this.touch()
   }
 
   static create(

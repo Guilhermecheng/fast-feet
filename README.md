@@ -4,7 +4,7 @@
 - [ ] Deve ser possível realizar login com CPF e Senha;
 - [ ] Deve ser possível realizar o CRUD dos entregadores;
 - [x] Deve ser possível realizar o CRUD das encomendas;
-- [ ] Deve ser possível realizar o CRUD dos destinatários;
+- [x] Deve ser possível realizar o CRUD dos destinatários;
 - [ ] Deve ser possível marcar uma encomenda como aguardando (Disponível para retirada);
 - [ ] Deve ser possível retirar uma encomenda;
 - [ ] Deve ser possível marcar uma encomenda como entregue;
@@ -34,7 +34,7 @@
 
 - [x] Create
 - [x] Read
-- [ ] Update
+- [x] Update
 - [x] Delete
 
 # Regras de negócio

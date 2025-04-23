@@ -17,6 +17,15 @@ export class InMemoryDestinationsRepository implements DestinationsRepository {
     }
   }
 
+  async update(destination: Destination) {
+    const destinationIndex = this.items.findIndex(
+      (item) => item.id.toString() === destination.id.toString(),
+    )
+    if (destinationIndex !== -1) {
+      this.items[destinationIndex] = destination
+    }
+  }
+
   async findById(id: string) {
     const destination = this.items.find((item) => item.id.toString() === id)
 
