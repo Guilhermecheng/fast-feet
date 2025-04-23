@@ -33,7 +33,7 @@
 ### Destinatários
 
 - [x] Create
-- [ ] Read
+- [x] Read
 - [ ] Update
 - [ ] Delete
 

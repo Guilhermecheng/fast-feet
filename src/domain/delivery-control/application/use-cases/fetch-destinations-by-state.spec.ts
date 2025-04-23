@@ -1,29 +1,29 @@
 import { InMemoryDestinationsRepository } from 'test/repositories/in-memory-destinations-repository'
-import { FetchDestinationByCityUseCase } from './fetch-destinations-by-city'
+import { FetchDestinationByStateUseCase } from './fetch-destinations-by-state'
 import { makeDestination } from 'test/factories/make-destination'
 
 let inMemoryDestinationsRepository: InMemoryDestinationsRepository
-let sut: FetchDestinationByCityUseCase
+let sut: FetchDestinationByStateUseCase
 
-describe('Fetch Destinations by City', () => {
+describe('Fetch Destinations by State', () => {
   beforeEach(() => {
     inMemoryDestinationsRepository = new InMemoryDestinationsRepository()
-    sut = new FetchDestinationByCityUseCase(inMemoryDestinationsRepository)
+    sut = new FetchDestinationByStateUseCase(inMemoryDestinationsRepository)
   })
 
-  it('should be able to fetch all destinations in a city', async () => {
+  it('should be able to fetch all destinations in a state', async () => {
     const destination1 = await makeDestination({
-      city: 'São Paulo',
+      state: 'Paraná',
     })
     const destination2 = await makeDestination({
-      city: 'São Paulo',
+      state: 'Paraná',
     })
     const destination3 = await makeDestination({
-      city: 'São Paulo',
+      state: 'São Paulo',
     })
 
     const destination4 = await makeDestination({
-      city: 'Rio de Janeiro',
+      state: 'Rio de Janeiro',
     })
 
     await inMemoryDestinationsRepository.create(destination1)
@@ -32,32 +32,27 @@ describe('Fetch Destinations by City', () => {
     await inMemoryDestinationsRepository.create(destination4)
 
     const result = await sut.execute({
-      city: 'São Paulo',
+      state: 'Paraná',
     })
 
     expect(result.isRight()).toBe(true)
     //@ts-ignore
-    expect(result.value?.destinations).toHaveLength(3)
+    expect(result.value?.destinations).toHaveLength(2)
   })
 
-  it('should not be able to fetch a destination from another city', async () => {
-    const destination1 = await makeDestination({
-      city: 'São Paulo',
+  it('should not be able to fetch a destination from another state', async () => {
+    const destination = await makeDestination({
+      state: 'Rio de Janeiro',
     })
 
-    const destination2 = await makeDestination({
-      city: 'Rio de Janeiro',
-    })
-
-    await inMemoryDestinationsRepository.create(destination1)
-    await inMemoryDestinationsRepository.create(destination2)
+    await inMemoryDestinationsRepository.create(destination)
 
     const result = await sut.execute({
-      city: 'São Paulo',
+      state: 'São Paulo',
     })
 
     expect(result.isRight()).toBe(true)
     //@ts-ignore
-    expect(result.value?.destinations).toHaveLength(1)
+    expect(result.value?.destinations).toHaveLength(0)
   })
 })

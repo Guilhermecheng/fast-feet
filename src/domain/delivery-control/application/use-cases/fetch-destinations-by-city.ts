@@ -1,4 +1,4 @@
-import { left, right } from '@/core/either'
+import { right } from '@/core/either'
 import { DestinationsRepository } from '../repositories/destinations-repository'
 
 interface FetchDestinationByCityUseCaseRequest {
