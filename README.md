@@ -35,7 +35,7 @@
 - [x] Create
 - [x] Read
 - [ ] Update
-- [ ] Delete
+- [x] Delete
 
 # Regras de negócio
 
