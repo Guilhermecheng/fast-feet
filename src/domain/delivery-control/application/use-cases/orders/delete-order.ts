@@ -2,8 +2,8 @@ import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { OrderNotFoundError } from '@/core/errors/errors/order-not-found-error'
 import { UserNotFoundError } from '@/core/errors/errors/user-not-found-error'
-import { OrdersRepository } from '../repositories/orders-repository'
-import { UsersRepository } from '../repositories/users-repository'
+import { OrdersRepository } from '../../repositories/orders-repository'
+import { UsersRepository } from '../../repositories/users-repository'
 
 interface DeleteOrderUseCaseRequest {
   authorId: string

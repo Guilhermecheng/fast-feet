@@ -1,9 +1,9 @@
 import { left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists'
-import { User } from '../../enterprise/entities/user'
-import { HashGenerator } from '../cryptography/hash-generator'
-import { UsersRepository } from '../repositories/users-repository'
+import { User } from '@/domain/delivery-control/enterprise/entities/user'
+import { HashGenerator } from '../../cryptography/hash-generator'
+import { UsersRepository } from '../../repositories/users-repository'
 
 interface CreateUserUseCaseRequest {
   name: string

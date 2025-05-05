@@ -1,5 +1,5 @@
 import { right } from '@/core/either'
-import { DestinationsRepository } from '../repositories/destinations-repository'
+import { DestinationsRepository } from '../../repositories/destinations-repository'
 
 interface FetchDestinationByStateUseCaseRequest {
   state: string

@@ -1,9 +1,9 @@
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { makeOrder } from 'test/factories/make-order'
 import { makeUser } from 'test/factories/make-user'
 import { InMemoryOrdersRepository } from 'test/repositories/in-memory-orders-repository'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
 import { EditOrderUseCase } from './edit-order'
-import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 
 let inMemoryOrdersRepository: InMemoryOrdersRepository
 let inMemoryUsersRepository: InMemoryUsersRepository

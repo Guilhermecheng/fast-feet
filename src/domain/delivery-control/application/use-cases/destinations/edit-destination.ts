@@ -3,8 +3,8 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { DestinationNotFoundError } from '@/core/errors/errors/destination-not-found-error'
 import { UserNotFoundError } from '@/core/errors/errors/user-not-found-error'
-import { DestinationsRepository } from '../repositories/destinations-repository'
-import { UsersRepository } from '../repositories/users-repository'
+import { DestinationsRepository } from '../../repositories/destinations-repository'
+import { UsersRepository } from '../../repositories/users-repository'
 
 interface EditDestinationUseCaseRequest {
   destinationId: string

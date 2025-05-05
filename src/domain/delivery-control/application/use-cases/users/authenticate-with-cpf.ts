@@ -1,8 +1,8 @@
 import { left, right } from '@/core/either'
 import { InvalidCredentialsError } from '@/core/errors/errors/invalid-credentials-error'
-import { Encrypter } from '../cryptography/encrypter'
-import { HashComparer } from '../cryptography/hash-comparer'
-import { UsersRepository } from '../repositories/users-repository'
+import { Encrypter } from '../../cryptography/encrypter'
+import { HashComparer } from '../../cryptography/hash-comparer'
+import { UsersRepository } from '../../repositories/users-repository'
 
 interface AuthenticateWithCpfUseCaseRequest {
   cpf: string

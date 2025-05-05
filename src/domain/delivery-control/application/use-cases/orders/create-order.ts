@@ -1,7 +1,7 @@
 import { right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Order } from '../../enterprise/entities/order'
-import { OrdersRepository } from '../repositories/orders-repository'
+import { OrdersRepository } from '../../repositories/orders-repository'
+import { Order } from '@/domain/delivery-control/enterprise/entities/order'
 
 interface CreateOrderUseCaseRequest {
   destinationId: string

@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { UserNotFoundError } from '@/core/errors/errors/user-not-found-error'
-import { DestinationsRepository } from '../repositories/destinations-repository'
-import { UsersRepository } from '../repositories/users-repository'
 import { DestinationNotFoundError } from '@/core/errors/errors/destination-not-found-error'
+import { DestinationsRepository } from '../../repositories/destinations-repository'
+import { UsersRepository } from '../../repositories/users-repository'
 
 interface DeleteDestinationUseCaseRequest {
   authorId: string

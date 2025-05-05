@@ -1,6 +1,6 @@
 import { right } from '@/core/either'
-import { Destination } from '../../enterprise/entities/destination'
-import { DestinationsRepository } from '../repositories/destinations-repository'
+import { DestinationsRepository } from '../../repositories/destinations-repository'
+import { Destination } from '@/domain/delivery-control/enterprise/entities/destination'
 
 interface CreateDestinationUseCaseRequest {
   zipCode: string
