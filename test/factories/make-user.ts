@@ -14,7 +14,7 @@ export function makeUser(
     {
       name: faker.person.fullName(),
       email: faker.internet.email(),
-      password: faker.internet.password(),
+      password_hash: faker.internet.password(),
       cpf: faker.number.int({ min: 10000000000, max: 99999999999 }).toString(),
       role: 'DELIVERYMAN', // if ADMIN, send trough override
       ...override,

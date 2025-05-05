@@ -18,13 +18,13 @@ describe('Create User', () => {
       email: 'guilherme@testeemail.com',
       password: '123456',
       name: 'Guilherme',
-      role: 'DELIVERYMAN',
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.value).toEqual({
       user: inMemoryUsersRepository.items[0],
     })
+    expect(inMemoryUsersRepository.items[0].role).toEqual('DELIVERYMAN')
   })
 
   it('should be able to create an user with an ADMIN role ', async () => {
@@ -44,21 +44,19 @@ describe('Create User', () => {
     })
   })
 
-  it('should be able to create an user with a DELIVERYMAN role ', async () => {
+  it("should be able to hash the user's password", async () => {
     const result = await sut.execute({
       cpf: '12345678910',
-      email: 'guilherme_entregador@testeemail2.com',
-      password: '321654',
-      name: 'Guilherme Entregador',
-      role: 'DELIVERYMAN',
+      email: 'guilherme@testeemail.com',
+      password: '123456',
+      name: 'Guilherme',
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.value).toEqual({
-      user: expect.objectContaining({
-        role: 'DELIVERYMAN',
-      }),
+      user: inMemoryUsersRepository.items[0],
     })
+    expect(inMemoryUsersRepository.items[0].password_hash).not.toEqual('123456')
   })
 
   it('should NOT be able to create an user with any other type of role', async () => {
@@ -67,6 +65,8 @@ describe('Create User', () => {
       email: 'guilherme_entregador@testeemail2.com',
       password: '321654',
       name: 'Guilherme Entregador',
+
+      //@ts-ignore
       role: 'EXAMPLE_ROLE',
     })
 

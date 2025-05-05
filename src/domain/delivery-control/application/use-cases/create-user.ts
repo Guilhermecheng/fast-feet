@@ -3,13 +3,14 @@ import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists'
 import { User } from '../../enterprise/entities/user'
 import { UsersRepository } from '../repositories/users-repository'
+import { hash } from 'bcryptjs'
 
 interface CreateUserUseCaseRequest {
   name: string
   cpf: string
   email: string
   password: string
-  role: string
+  role?: 'ADMIN' | 'DELIVERYMAN'
 }
 
 export class CreateUserUseCase {
@@ -20,7 +21,7 @@ export class CreateUserUseCase {
     cpf,
     email,
     password,
-    role,
+    role = 'DELIVERYMAN',
   }: CreateUserUseCaseRequest) {
     if (!['ADMIN', 'DELIVERYMAN'].includes(role)) {
       return left(new NotAllowedError())
@@ -33,13 +34,14 @@ export class CreateUserUseCase {
       return left(new UserAlreadyExistsError())
     }
 
+    const password_hash = await hash(password, 6)
+
     const user = User.create({
       name,
       cpf,
       role,
       email,
-      password,
-      createdAt: new Date(),
+      password_hash,
     })
 
     await this.usersRepository.create(user)

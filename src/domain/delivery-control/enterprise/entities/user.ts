@@ -4,10 +4,13 @@ import { Optional } from '@/core/types/optional'
 
 export interface UserProps {
   createdAt: Date
+  updatedAt?: Date
+
   name: string
   cpf: string
   email: string
-  password: string
+  password_hash: string
+
   role: string // 'ADMIN' | 'DELIVERYMAN'
 }
 
@@ -31,6 +34,10 @@ export class User extends Entity<UserProps> {
 
   get createdAt() {
     return this.props.createdAt
+  }
+
+  get password_hash() {
+    return this.props.password_hash
   }
 
   canEditOrders(): boolean {
