@@ -2,14 +2,18 @@ import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repos
 import { CreateUserUseCase } from './create-user'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists'
+import { FakeHasher } from 'test/cryptography/fake-hasher'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
+let fakeHasher: FakeHasher
 let sut: CreateUserUseCase
 
 describe('Create User', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    sut = new CreateUserUseCase(inMemoryUsersRepository)
+    fakeHasher = new FakeHasher()
+
+    sut = new CreateUserUseCase(inMemoryUsersRepository, fakeHasher)
   })
 
   it('should be able to create an user', async () => {
@@ -27,7 +31,7 @@ describe('Create User', () => {
     expect(inMemoryUsersRepository.items[0].role).toEqual('DELIVERYMAN')
   })
 
-  it('should be able to create an user with an ADMIN role ', async () => {
+  it('should be able to create an user with an ADMIN role', async () => {
     const result = await sut.execute({
       cpf: '12345678910',
       email: 'guilherme@testeemail.com',
@@ -56,7 +60,7 @@ describe('Create User', () => {
     expect(result.value).toEqual({
       user: inMemoryUsersRepository.items[0],
     })
-    expect(inMemoryUsersRepository.items[0].password_hash).not.toEqual('123456')
+    expect(inMemoryUsersRepository.items[0].password).not.toEqual('123456')
   })
 
   it('should NOT be able to create an user with any other type of role', async () => {

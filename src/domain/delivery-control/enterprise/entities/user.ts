@@ -9,7 +9,7 @@ export interface UserProps {
   name: string
   cpf: string
   email: string
-  password_hash: string
+  password: string
 
   role: string // 'ADMIN' | 'DELIVERYMAN'
 }
@@ -36,8 +36,8 @@ export class User extends Entity<UserProps> {
     return this.props.createdAt
   }
 
-  get password_hash() {
-    return this.props.password_hash
+  get password() {
+    return this.props.password
   }
 
   canEditOrders(): boolean {

@@ -1,6 +1,7 @@
 import { left, right } from '@/core/either'
 import { InvalidCredentialsError } from '@/core/errors/errors/invalid-credentials-error'
-import { compare } from 'bcryptjs'
+import { Encrypter } from '../cryptography/encrypter'
+import { HashComparer } from '../cryptography/hash-comparer'
 import { UsersRepository } from '../repositories/users-repository'
 
 interface AuthenticateWithCpfUseCaseRequest {
@@ -9,7 +10,11 @@ interface AuthenticateWithCpfUseCaseRequest {
 }
 
 export class AuthenticateWithCpfUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private hashComparer: HashComparer,
+    private encrypter: Encrypter,
+  ) {}
 
   async execute({ cpf, password }: AuthenticateWithCpfUseCaseRequest) {
     const user = await this.usersRepository.findByCpf(cpf)
@@ -18,14 +23,21 @@ export class AuthenticateWithCpfUseCase {
       return left(new InvalidCredentialsError())
     }
 
-    const doesPasswordMatches = await compare(password, user.password_hash)
+    const isPasswordValid = await this.hashComparer.compare(
+      password,
+      user.password,
+    )
 
-    if (!doesPasswordMatches) {
+    if (!isPasswordValid) {
       return left(new InvalidCredentialsError())
     }
 
+    const accessToken = await this.encrypter.encrypt({
+      sub: user.id.toString(),
+    })
+
     return right({
-      user,
+      accessToken,
     })
   }
 }
